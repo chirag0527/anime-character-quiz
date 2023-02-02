@@ -7,8 +7,12 @@ function App() {
 
   const [realDataArray, setRealDataArray] = React.useState([])
 
-  const [isActiveCard1, setIsActiveCard1] = React.useState(false)
+  const [isActiveCard1, setIsActiveCard1] = React.useState(true)
   const [isActiveCard2, setIsActiveCard2] = React.useState(false)
+
+  const [card1, setCard1] = React.useState()
+  const [card2, setCard2] = React.useState()
+
 
 
   React.useEffect(()=>{
@@ -57,9 +61,14 @@ function App() {
     }
   }
 
-  function handleCardClick(e){
-    setIsActiveCard1(current => !current);
-    setIsActiveCard2(current => !current);
+  function handleCardClick(index) {
+    if (index === 0) {
+      setIsActiveCard1(current => !current);
+      setIsActiveCard2(current => !current)
+    } else {
+      setIsActiveCard2(current => !current);
+      setIsActiveCard1(current => !current)
+    }
   }
 
 
@@ -83,22 +92,25 @@ function App() {
 
     let answer = compare(realDataArray[r1], realDataArray[r2])
 
+    // setCard1(realDataArray[r1])
+    // setCard2(realDataArray[r2])
+
     return (
       <div className="App">
         <Header />
         <div className='main'>
           <div className='card-container'>
             <Card 
-            className = {isActiveCard2?'selected-card':''}
+            className = {isActiveCard1?'selected-card':''}
             name = {realDataArray[r1].name}
             img = {realDataArray[r1].image}
-            onclick={handleCardClick}
+            onclick={() => handleCardClick(0)}
             />
             <Card 
             className = {isActiveCard2?'selected-card':''}
             name = {realDataArray[r2].name}
             img = {realDataArray[r2].image}
-            onclick={handleCardClick}
+            onclick={() => handleCardClick(1)}
             />
           </div>
           <div className='btn-container'>
