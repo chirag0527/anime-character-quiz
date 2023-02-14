@@ -10,12 +10,10 @@ function App() {
   const [isActiveCard1, setIsActiveCard1] = React.useState(true)
   const [isActiveCard2, setIsActiveCard2] = React.useState(false)
 
-  const [card1, setCard1] = React.useState()
-  const [card2, setCard2] = React.useState()
-
-
   const [r1, setr1] = React.useState(Math.floor(Math.random() * 50));
   const [r2, setr2] = React.useState(Math.floor(Math.random() * 50));
+
+  const [answer, setAnswer] = React.useState('')
 
 
   React.useEffect(()=>{
@@ -31,14 +29,6 @@ function App() {
   getData()
 },[])
  
-  function shuffleArray(array) {
-    for (var i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
-  }
 
   function createDataObjectArray(data){
 
@@ -63,7 +53,6 @@ function App() {
     }
   }
 
-  
 
   function handleCardClick(index) {
     if (index === 0) {
@@ -73,8 +62,12 @@ function App() {
       setIsActiveCard2(current => !current);
       setIsActiveCard1(current => !current)
     }
-    // setr1(Math.floor(Math.random() * 50))
-    // setr2(Math.floor(Math.random() * 50))
+  }
+
+  
+  function handleButtonClick(){ 
+    setAnswer(compare(realDataArray[r1], realDataArray[r2]))
+    console.log(answer)
   }
 
 
@@ -83,7 +76,6 @@ function App() {
   }
 
   //Function calling
-  // shuffleArray(realDataArray)
   console.log(realDataArray)
 
   if(realDataArray.length<100){
@@ -93,27 +85,19 @@ function App() {
   }
   else{
 
-    // let r1 = Math.floor(Math.random() * 50)
-    // let r2 = Math.floor(Math.random() * 50)
-
-    let answer = compare(realDataArray[r1], realDataArray[r2])
-
-    // setCard1(realDataArray[r1])
-    // setCard2(realDataArray[r2])
-
     return (
       <div className="App">
         <Header />
         <div className='main'>
           <div className='card-container'>
             <Card 
-            className = {isActiveCard1?'selected-card':''}
+            className = {isActiveCard1?'selected-card':'card'}
             name = {realDataArray[r1].name}
             img = {realDataArray[r1].image}
             onclick={() => handleCardClick(0)}
             />
             <Card 
-            className = {isActiveCard2?'selected-card':''}
+            className = {isActiveCard2?'selected-card':'card'} 
             name = {realDataArray[r2].name}
             img = {realDataArray[r2].image}
             onclick={() => handleCardClick(1)}
@@ -121,7 +105,7 @@ function App() {
           </div>
           <div className='btn-container'>
             <button className='btn'
-            
+            onClick = {handleButtonClick}
             >Check!</button>
           </div>
           <p className='answer'>{answer}</p>
