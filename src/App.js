@@ -14,6 +14,9 @@ function App() {
   const [card2, setCard2] = React.useState()
 
 
+  const [r1, setr1] = React.useState(Math.floor(Math.random() * 50));
+  const [r2, setr2] = React.useState(Math.floor(Math.random() * 50));
+
 
   React.useEffect(()=>{
     const getData = async()=>{
@@ -24,7 +27,6 @@ function App() {
       const objdata = createDataObjectArray(data)
       setRealDataArray((prevData) => [...prevData, ...objdata])
     }
-
   }
   getData()
 },[])
@@ -61,6 +63,8 @@ function App() {
     }
   }
 
+  
+
   function handleCardClick(index) {
     if (index === 0) {
       setIsActiveCard1(current => !current);
@@ -69,6 +73,8 @@ function App() {
       setIsActiveCard2(current => !current);
       setIsActiveCard1(current => !current)
     }
+    // setr1(Math.floor(Math.random() * 50))
+    // setr2(Math.floor(Math.random() * 50))
   }
 
 
@@ -77,7 +83,7 @@ function App() {
   }
 
   //Function calling
-  shuffleArray(realDataArray)
+  // shuffleArray(realDataArray)
   console.log(realDataArray)
 
   if(realDataArray.length<100){
@@ -87,8 +93,8 @@ function App() {
   }
   else{
 
-    let r1 = Math.floor(Math.random() * 50)
-    let r2 = Math.floor(Math.random() * 50)
+    // let r1 = Math.floor(Math.random() * 50)
+    // let r2 = Math.floor(Math.random() * 50)
 
     let answer = compare(realDataArray[r1], realDataArray[r2])
 
