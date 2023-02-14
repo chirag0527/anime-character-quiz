@@ -14,6 +14,8 @@ function App() {
   const [r2, setr2] = React.useState(Math.floor(Math.random() * 50));
 
   const [answer, setAnswer] = React.useState('')
+  const [userAnswer, setUserAnswer] = React.useState('')
+  
 
 
   React.useEffect(()=>{
@@ -54,26 +56,16 @@ function App() {
   }
 
 
-  function handleCardClick(index) {
-    if (index === 0) {
-      setIsActiveCard1(current => !current);
-      setIsActiveCard2(current => !current)
-    } else {
-      setIsActiveCard2(current => !current);
-      setIsActiveCard1(current => !current)
-    }
-  }
-
-  
   function handleButtonClick(){ 
     setAnswer(compare(realDataArray[r1], realDataArray[r2]))
-    console.log(answer)
+    if(isActiveCard1){
+      setUserAnswer(realDataArray[r1].name)
+    }
+    else{
+      setUserAnswer(realDataArray[r2].name)
+    } 
   }
 
-
-  function temp(){
-    console.log('clicked')
-  }
 
   //Function calling
   console.log(realDataArray)
@@ -84,6 +76,20 @@ function App() {
     )
   }
   else{
+
+    
+
+    function handleCardClick(index) {
+      if (index === 0) {
+        setIsActiveCard1(current => !current);
+        setIsActiveCard2(current => !current)
+        
+      } else {
+        setIsActiveCard2(current => !current);
+        setIsActiveCard1(current => !current)
+        
+      }
+    }
 
     return (
       <div className="App">
@@ -108,13 +114,12 @@ function App() {
             onClick = {handleButtonClick}
             >Check!</button>
           </div>
-          <p className='answer'>{answer}</p>
+          <p className='answer'>{userAnswer==answer?`Yes, correct!`:`No, wrong!`}</p>
+          {console.log({userAnswer, answer})}
         </div>  
       </div>
     );
   }
-
-  
 }
 
 export default App;
