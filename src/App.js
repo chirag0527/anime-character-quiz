@@ -77,8 +77,6 @@ function App() {
   }
   else{
 
-    
-
     function handleCardClick(index) {
       if (index === 0) {
         setIsActiveCard1(current => !current);
@@ -114,12 +112,13 @@ function App() {
             onClick = {handleButtonClick}
             >Check!</button>
           </div>
-          <p className='answer'>{userAnswer==answer?`Yes, correct!`:`No, wrong!`}</p>
+          {answer && <p className={userAnswer==answer?`answer`:`wronganswer`}>{userAnswer==answer?`Yes, correct!`:`No, wrong!`}</p>}
           {console.log({userAnswer, answer})}
         </div>  
       </div>
     );
   }
 }
+
 
 export default App;
